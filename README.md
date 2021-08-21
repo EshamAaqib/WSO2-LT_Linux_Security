@@ -57,9 +57,9 @@ hping3 -a 192.168.1.233 192.168.1.230 -S --flood -V -p 80
 ### To avoid SYN Flood Attacks I went ahead and configured iptables. This is the command I executed
 
 ```
-sudo iptables -I INPUT 1 -p tcp --syn -m hashlimit --hashlimit 15/s --hashlimit-burst 30 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name synattack -j ACCEPT
+sudo iptables -I INPUT 1 -p tcp --syn -m hashlimit --hashlimit 1/s --hashlimit-burst 3 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name synattack -j ACCEPT
 sudo iptables -I INPUT 2  -p tcp --syn -j DROP
-sudo iptables -I INPUT 1 -p tcp --syn -m hashlimit --hashlimit 15/s --hashlimit-burst 30 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name synattack -j LOG --log-prefix '** SYN ATTACK DETECTED **'
+sudo iptables -I INPUT 1 -p tcp --syn -m hashlimit --hashlimit 1/s --hashlimit-burst 3 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name synattack -j LOG --log-prefix '** SYN ATTACK DETECTED **'
 ```
 
 
