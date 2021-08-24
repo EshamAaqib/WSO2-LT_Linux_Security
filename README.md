@@ -276,6 +276,30 @@ alice:$6$ZBkvKk.wfOiQ2sZ3$LCTkokX9TflODK2R3zN5AlEpRdD6y6zGwncT6oK7M6TAdBzBgyd//Q
 2. ZBkvKk.wfOiQ2sZ3 = Salt
 3. LCTkokX9TflODK2R3zN5AlEpRdD6y6zGwncT6oK7M6TAdBzBgyd//QlxihnVv9awfDbbu4.HE/.YfYC6.Kdmf1 = Hash Value
 
+![image](https://user-images.githubusercontent.com/75664650/130668078-365b7728-fcb6-427b-9e40-6c6438979d7e.png)
+
+### Changing hashing algorithm to sha 256 and generating new hash and salt for user Alice
+
+###### First I went ahead and modified the file /etc/pam.d/common-password and commented the ```password      [success=1 default=ignore]      pam_unix.so obscure sha512``` line and added the following
+
+```
+password      [success=1 default=ignore]      pam_unix.so obscure sha256
+```
+
+###### Then I used the following command to change the password for user alice
+
+```
+passwd alice
+```
+
+###### Then I again used the cat command to view the shadow file
+
+![image](https://user-images.githubusercontent.com/75664650/130668423-b9783476-183d-4c3a-bac6-44f49387bc77.png)
+
+###### Output - $5$F2yCFdoPGkuwH0ce$M1bc4bVdOMHxut8xn4x8Pl7KTxeMprov7.oi6zFfwl6:18863:0:99999:7:::
+
+
+
 
 
 
