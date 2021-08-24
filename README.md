@@ -259,6 +259,23 @@ alice ALL=/usr/bin/apt-get
 
 ![image](https://user-images.githubusercontent.com/75664650/130664870-9469132d-80b2-48a5-8a51-29bf384bb7d9.png)
 
+## 6. Linux Login Mechanism
+
+### I used cat command to view the password
+
+```
+cat /etc/shadow
+```
+
+###### Output 
+
+```
+alice:$6$ZBkvKk.wfOiQ2sZ3$LCTkokX9TflODK2R3zN5AlEpRdD6y6zGwncT6oK7M6TAdBzBgyd//QlxihnVv9awfDbbu4.HE/.YfYC6.Kdmf1:18863:0:99999:7:::
+```
+1. $6$ = SHA-512 Algorithm
+2. ZBkvKk.wfOiQ2sZ3 = Salt
+3. LCTkokX9TflODK2R3zN5AlEpRdD6y6zGwncT6oK7M6TAdBzBgyd//QlxihnVv9awfDbbu4.HE/.YfYC6.Kdmf1 = Hash Value
+
 
 
 
