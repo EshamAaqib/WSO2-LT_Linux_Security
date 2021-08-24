@@ -95,9 +95,60 @@ service rsyslog restart
 
 ![image](https://user-images.githubusercontent.com/75664650/130329002-64f83391-47d0-4d31-8e2b-490d992b82df.png)
 
+## 2. CHROOT
+
+### Creating users 
+
+```
+adduser alice
+adduser bob
+adduser john
+```
+
+### Creating groups
+
+```
+groupadd Admin
+groupadd Finance
+groupadd Sales
+```
+
+### Assigning users to groups
+
+```
+usermod -G Admin alice
+usermod -G Admin,Sales bob
+usermod -G Sales john
+```
+
+### Creating the directory 'wso2' and ‘jail’
+
+```
+mkdir wso2
+mkdir jail
+```
+
+### Copying libraries to jail directory
+
+```
+mkdir bin lib lib64
+cp /bin/bash bin/
+cp /lib/x86_64-linux-gnu/libtinfo.so.6  /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libc.so.6 lib/
+cp /lib64/ld-linux-x86-64.so.2 lib64/
+cp /lib/x86_64-linux-gnu/libselinux.so.1 /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libpcre2-8.so.0 /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libpthread.so.0 lib/
+cp /lib64/ld-linux-x86-64.so.2 lib64/
+```
+
+### Configuring sshd_config file
+
+###### First I went ahead and installed open-ssh server on my Ubuntu machine then I went ahead and commented Subsytem line and added a new line with the following
+
+```
+Susbsystem sftp internal-sftp
+```
 
 
-
+ 
 
 
 
