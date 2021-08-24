@@ -147,6 +147,130 @@ cp /lib64/ld-linux-x86-64.so.2 lib64/
 Susbsystem sftp internal-sftp
 ```
 
+## 3. SELINUX
+
+### Before installing SELinux I had to uninstall AppArmor from Ubuntu to avoid conflicts
+
+```
+sudo systemctl stop apparmor
+sudo apt-get remove apparmor -y
+sudo reboot
+```
+
+
+### Installing SELINUX
+
+```
+sudo apt install policycoreutils selinux-utils selinux-basics
+```
+
+### Activating SELINUX
+
+```
+sudo selinux-activate
+sudo reboot
+```
+
+
+### Setting SELinux operating mode to enforcing
+
+```
+sudo selinux-config-enforcing
+sudo reboot
+```
+
+### Enabling binary module ""mozilla_manage_all_user_content"" as default protected daemon by target policy
+
+```
+setsebool mozilla_manage_all_user_conten on
+```
+
+## 4. Advance File Permissions
+
+### First I logged into alice and created a executable file with the following
+
+```
+#!/bin/bash
+
+echo "Hello World";
+while true
+do
+sleep 1
+done
+```
+
+###### The I executed the following
+
+```
+chmod +x executablefile
+sudo cp executablefile /usr/local/bin
+sudo chmod u+s /usr/local/bin/executablefile
+```
+
+![image](https://user-images.githubusercontent.com/75664650/130659827-76138052-721b-4e5d-b9ed-6f0a159b7951.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130659857-1dbebcda-ecd4-48da-abb5-9385c49d69a6.png)
+
+
+### I ran the following so only the root user can run ping command
+
+```
+chmod -R 700 /usr/bin/ping
+```
+
+![image](https://user-images.githubusercontent.com/75664650/130660330-97dd9c28-ca97-4830-b268-bb2790a0b4d9.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130660365-5e36200e-c31e-4142-9539-ff7e8cd4c97e.png)
+
+### I ran the following to allow the ping command to user Alice without setting execute permission to others
+
+```
+chown -R Alice:Admin /usr/bin/ping
+chown 
+```
+
+![image](https://user-images.githubusercontent.com/75664650/130661121-de38bef2-c682-4ec4-8816-7419f147cd13.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130661429-2f39afb8-7229-49f7-9611-c1f74e967aae.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130661462-d47cf135-caf3-4158-9667-545c7081f5ac.png)
+
+
+## 5. Access Control with sudo
+
+### Adding permission to user John so that he can only view /var/log/auth.log,/etc/shadow files
+
+```
+setfacl -m u:alice:r  /var/log/auth.log
+setfacl -m u:alice:r  /etc/shadow
+```
+### Allowing only Alice and Bob to install packages using sudo without password prompt
+
+###### I added the following to the sudoers file 
+
+```
+bob ALL=/usr/bin/apt-get
+alice ALL=/usr/bin/apt-get
+```
+
+![image](https://user-images.githubusercontent.com/75664650/130664801-0596c225-b2b0-4292-b698-4c31e45e01ec.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130664979-8d225af9-ada1-40ca-bee8-7f0af3968a37.png)
+
+![image](https://user-images.githubusercontent.com/75664650/130664870-9469132d-80b2-48a5-8a51-29bf384bb7d9.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
 
